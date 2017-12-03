@@ -9,11 +9,11 @@ using Rewards.Services.Interfaces;
 namespace Rewards.Controllers
 {
     [Route("api/[controller]")]
-    public class SampleDataController : Controller
+    public class RewardsDataController : Controller
     {
         private readonly IRewardsService _rewardsService;
 
-        public SampleDataController(IRewardsService rewardsService)
+        public RewardsDataController(IRewardsService rewardsService)
         {
             _rewardsService = rewardsService;
         }

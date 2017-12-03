@@ -66,7 +66,7 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, Reward
             this.setState({ loading: true });
         }
 
-        fetch(`api/SampleData/Rewards?pageNumber=${pageNumber}`)
+        fetch(`api/RewardsData/Rewards?pageNumber=${pageNumber}`)
             .then(response => response.json() as Promise<RewardDataModel>)
             .then(data => {
                 this.setState({
