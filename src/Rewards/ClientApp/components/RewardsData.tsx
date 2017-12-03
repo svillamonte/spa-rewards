@@ -2,18 +2,18 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
 
-interface FetchDataExampleState {
-    forecasts: RewardModel[];
+interface RewardsDataState {
+    rewards: RewardModel[];
     paginationData: PaginationModel;
     loading: boolean;
     currentPage: number;
 }
 
-export class RewardsData extends React.Component<RouteComponentProps<{}>, FetchDataExampleState> {
+export class RewardsData extends React.Component<RouteComponentProps<{}>, RewardsDataState> {
     constructor() {
         super();
         this.state = { 
-            forecasts: [], 
+            rewards: [], 
             paginationData: {} as PaginationModel,
             loading: true, 
             currentPage: 1 
@@ -23,11 +23,11 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, FetchD
     }
     
     public render() {
-        const { loading, forecasts, currentPage, paginationData } = this.state;
+        const { loading, rewards, currentPage, paginationData } = this.state;
 
         let contents = loading
             ? <p><em>Loading...</em></p>
-            : RewardsData.renderForecastsTable(forecasts);
+            : RewardsData.renderRewardsTable(rewards);
 
         const nextPageEnabled = paginationData.pageSize * currentPage < paginationData.totalRecords;
         const previousPageEnabled = currentPage > 1;
@@ -46,8 +46,7 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, FetchD
                     Next page
                 </a>
             </div>
-            <h1>Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
+            <h1>Rewards list</h1>
             { contents }
         </div>;
     }
@@ -67,7 +66,7 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, FetchD
             .then(response => response.json() as Promise<RewardDataModel>)
             .then(data => {
                 this.setState({
-                    forecasts: data.rewards,
+                    rewards: data.rewards,
                     paginationData: data.paginationData,  
                     loading: false,
                     currentPage: pageNumber
@@ -75,7 +74,7 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, FetchD
             });
     }
 
-    private static renderForecastsTable(forecasts: RewardModel[]) {
+    private static renderRewardsTable(forecasts: RewardModel[]) {
         return <table className='table'>
             <thead>
                 <tr>
