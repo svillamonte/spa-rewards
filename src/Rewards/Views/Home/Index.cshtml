@@ -2,15 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <h1>Hola</h1>
-    </div>
-</div>
+<div id="react-app">Loading...</div>
 
-<script>
-    fetch('/api/values', { method: 'GET' })
-        .then(function (response) {
-            console.log(response.json());
-        });
-</script>
+@section scripts {
+    <script src="~/dist/main.js" asp-append-version="true"></script>
+}
