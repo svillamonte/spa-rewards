@@ -7,7 +7,7 @@ namespace Rewards.Services
 {
     public class RewardsService
     {
-        public List<Reward> GetRewards(int pageNumber)
+        public RewardData GetRewards(int pageNumber)
         {
             var apiClient = new ApiClient();
 
@@ -16,7 +16,7 @@ namespace Rewards.Services
             request.AddParameter("PageSize", 5);
 
             var response = apiClient.Execute<RewardData>(request);
-            return response.Data.Rewards;
+            return response.Data;
         }
     }
 }

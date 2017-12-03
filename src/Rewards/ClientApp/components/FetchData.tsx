@@ -4,6 +4,7 @@ import 'isomorphic-fetch';
 
 interface FetchDataExampleState {
     forecasts: RewardModel[];
+    paginationData: PaginationModel;
     loading: boolean;
     currentPage: number;
 }
@@ -13,6 +14,7 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
         super();
         this.state = { 
             forecasts: [], 
+            paginationData: {} as PaginationModel,
             loading: true, 
             currentPage: 1 
         };
@@ -21,17 +23,26 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
     }
     
     public render() {
-        let contents = this.state.loading
-            ? <p><em>Loading...</em></p>
-            : FetchData.renderForecastsTable(this.state.forecasts);
+        const { loading, forecasts, currentPage, paginationData } = this.state;
 
+        let contents = loading
+            ? <p><em>Loading...</em></p>
+            : FetchData.renderForecastsTable(forecasts);
+
+        const nextPageEnabled = paginationData.pageSize * currentPage < paginationData.totalRecords;
+        const previousPageEnabled = currentPage > 1;
+        
         return <div>
             <div>
-                <a href="javascript:void(0);" onClick={() => this.goToPreviousPage()}>
+                <a href="javascript:void(0);"
+                    className={`btn${previousPageEnabled ? "" : " disabled"}`} 
+                    onClick={() => this.goToPreviousPage()}>
                     Previous page
                 </a>
-                <span>{this.state.currentPage}</span>
-                <a href="javascript:void(0);" onClick={() => this.goToNextPage()}>
+                <span>{currentPage}</span>
+                <a href="javascript:void(0);"
+                    className={`btn${nextPageEnabled ? "" : " disabled"}`}
+                    onClick={() => this.goToNextPage()}>
                     Next page
                 </a>
             </div>
@@ -53,10 +64,11 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
 
     fetchData(pageNumber: number) {
         fetch(`api/SampleData/Rewards?pageNumber=${pageNumber}`)
-            .then(response => response.json() as Promise<RewardModel[]>)
+            .then(response => response.json() as Promise<RewardDataModel>)
             .then(data => {
-                this.setState({ 
-                    forecasts: data, 
+                this.setState({
+                    forecasts: data.rewards,
+                    paginationData: data.paginationData,  
                     loading: false,
                     currentPage: pageNumber
                  });
@@ -87,9 +99,19 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
     }
 }
 
+interface RewardDataModel {
+    rewards: RewardModel[],
+    paginationData: PaginationModel
+}
+
 interface RewardModel {
     id: string,
     dateCreatedFormatted: string;
     title: string,
     discountType: string
+}
+
+interface PaginationModel {
+    totalRecords: number,
+    pageSize: number
 }

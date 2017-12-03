@@ -11,18 +11,42 @@ namespace Rewards.Controllers
     public class SampleDataController : Controller
     {
         [HttpGet("[action]")]
-        public IEnumerable<RewardModel> Rewards(int pageNumber)
+        public RewardDataModel Rewards(int pageNumber)
         {
             var service = new RewardsService();
-            var rewards = service.GetRewards(pageNumber);
+            var rewardData = service.GetRewards(pageNumber);
 
-            return rewards.Select(x => new RewardModel
+            var rewardModels = rewardData.Rewards.Select(x => new RewardModel
             {
                 Id = x.Id,
                 DateCreatedFormatted = x.CreatedAt.ToShortDateString(),
                 Title = x.Title,
                 DiscountType = x.DiscountType
             });
+
+            return new RewardDataModel
+            {
+                Rewards = rewardModels,
+                PaginationData = new PaginationModel 
+                {
+                    TotalRecords = rewardData.PaginationData.TotalRecords,
+                    PageSize = rewardData.PaginationData.PageSize
+                }
+            };
+        }
+
+        public class RewardDataModel
+        {
+            public IEnumerable<RewardModel> Rewards { get; set; }
+
+            public PaginationModel PaginationData { get; set; }
+        }
+
+        public class PaginationModel
+        {
+            public int TotalRecords { get; set; }
+
+            public int PageSize { get; set; }
         }
 
         public class RewardModel
