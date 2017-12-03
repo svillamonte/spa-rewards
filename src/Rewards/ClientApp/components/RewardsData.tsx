@@ -19,7 +19,7 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, Reward
             currentPage: 1 
         };
 
-        this.fetchData(this.state.currentPage);
+        this.fetchData(this.state.currentPage, true);
     }
     
     public render() {
@@ -61,7 +61,11 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, Reward
         this.fetchData(nextPage);
     }
 
-    fetchData(pageNumber: number) {
+    fetchData(pageNumber: number, initialLoad: boolean = false) {
+        if (!initialLoad) {
+            this.setState({ loading: true });
+        }
+
         fetch(`api/SampleData/Rewards?pageNumber=${pageNumber}`)
             .then(response => response.json() as Promise<RewardDataModel>)
             .then(data => {
@@ -74,7 +78,7 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, Reward
             });
     }
 
-    private static renderRewardsTable(forecasts: RewardModel[]) {
+    private static renderRewardsTable(rewards: RewardModel[]) {
         return <table className='table'>
             <thead>
                 <tr>
@@ -85,12 +89,12 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, Reward
                 </tr>
             </thead>
             <tbody>
-            {forecasts.map((forecast, i) =>
+            {rewards.map((reward, i) =>
                 <tr key={ i }>
-                    <td>{ forecast.id }</td>
-                    <td>{ forecast.dateCreatedFormatted }</td>
-                    <td>{ forecast.title }</td>
-                    <td>{ forecast.discountType }</td>
+                    <td>{ reward.id }</td>
+                    <td>{ reward.dateCreatedFormatted }</td>
+                    <td>{ reward.title }</td>
+                    <td>{ reward.discountType }</td>
                 </tr>
             )}
             </tbody>
