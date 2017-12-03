@@ -9,7 +9,7 @@ interface FetchDataExampleState {
     currentPage: number;
 }
 
-export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDataExampleState> {
+export class RewardsData extends React.Component<RouteComponentProps<{}>, FetchDataExampleState> {
     constructor() {
         super();
         this.state = { 
@@ -27,7 +27,7 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
 
         let contents = loading
             ? <p><em>Loading...</em></p>
-            : FetchData.renderForecastsTable(forecasts);
+            : RewardsData.renderForecastsTable(forecasts);
 
         const nextPageEnabled = paginationData.pageSize * currentPage < paginationData.totalRecords;
         const previousPageEnabled = currentPage > 1;
