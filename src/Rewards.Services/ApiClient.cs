@@ -10,10 +10,10 @@ namespace Rewards.Services
         {            
         }
         
-        public override IRestResponse Execute(IRestRequest request)
+        public override IRestResponse<T> Execute<T>(IRestRequest request)
         {
             Authenticator = new ApiAuthenticator();
-            return base.Execute(request);
+            return base.Execute<T>(request);
         }        
     }
 }

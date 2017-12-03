@@ -3,42 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Rewards.Services;
 
 namespace Rewards.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts()
+        public IEnumerable<RewardModel> Rewards()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var service = new RewardsService();
+            var rewards = service.GetRewards();
+
+            return rewards.Select(x => new RewardModel
             {
-                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
+                Id = x.Id,
+                DateCreatedFormatted = x.CreatedAt.ToShortDateString(),
+                Title = x.Title,
+                DiscountType = x.DiscountType
             });
         }
 
-        public class WeatherForecast
+        public class RewardModel
         {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
+            public string Id { get; set; }
 
-            public int TemperatureF
-            {
-                get
-                {
-                    return 32 + (int)(TemperatureC / 0.5556);
-                }
-            }
+            public string DateCreatedFormatted { get; set; }
+            
+            public string Title { get; set; }
+
+            public string DiscountType { get; set; }
         }
     }
 }

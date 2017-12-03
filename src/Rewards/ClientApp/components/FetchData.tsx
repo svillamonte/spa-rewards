@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
 
 interface FetchDataExampleState {
-    forecasts: WeatherForecast[];
+    forecasts: RewardModel[];
     loading: boolean;
 }
 
@@ -12,8 +12,8 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
         super();
         this.state = { forecasts: [], loading: true };
 
-        fetch('api/SampleData/WeatherForecasts')
-            .then(response => response.json() as Promise<WeatherForecast[]>)
+        fetch('api/SampleData/Rewards')
+            .then(response => response.json() as Promise<RewardModel[]>)
             .then(data => {
                 this.setState({ forecasts: data, loading: false });
             });
@@ -31,23 +31,23 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
         </div>;
     }
 
-    private static renderForecastsTable(forecasts: WeatherForecast[]) {
+    private static renderForecastsTable(forecasts: RewardModel[]) {
         return <table className='table'>
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
+                    <th>Id</th>
+                    <th>Date created</th>
+                    <th>Title</th>
+                    <th>Discount type</th>
                 </tr>
             </thead>
             <tbody>
-            {forecasts.map(forecast =>
-                <tr key={ forecast.dateFormatted }>
-                    <td>{ forecast.dateFormatted }</td>
-                    <td>{ forecast.temperatureC }</td>
-                    <td>{ forecast.temperatureF }</td>
-                    <td>{ forecast.summary }</td>
+            {forecasts.map((forecast, i) =>
+                <tr key={ i }>
+                    <td>{ forecast.id }</td>
+                    <td>{ forecast.dateCreatedFormatted }</td>
+                    <td>{ forecast.title }</td>
+                    <td>{ forecast.discountType }</td>
                 </tr>
             )}
             </tbody>
@@ -55,9 +55,9 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
     }
 }
 
-interface WeatherForecast {
-    dateFormatted: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
+interface RewardModel {
+    id: string,
+    dateCreatedFormatted: string;
+    title: string,
+    discountType: string
 }
