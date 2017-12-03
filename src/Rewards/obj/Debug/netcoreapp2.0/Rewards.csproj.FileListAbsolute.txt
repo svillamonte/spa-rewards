@@ -1,0 +1,12 @@
+/home/walden2/Projects/spa-rewards/src/Rewards/bin/Debug/netcoreapp2.0/Rewards.deps.json
+/home/walden2/Projects/spa-rewards/src/Rewards/bin/Debug/netcoreapp2.0/Rewards.runtimeconfig.json
+/home/walden2/Projects/spa-rewards/src/Rewards/bin/Debug/netcoreapp2.0/Rewards.runtimeconfig.dev.json
+/home/walden2/Projects/spa-rewards/src/Rewards/bin/Debug/netcoreapp2.0/Rewards.dll
+/home/walden2/Projects/spa-rewards/src/Rewards/bin/Debug/netcoreapp2.0/Rewards.pdb
+/home/walden2/Projects/spa-rewards/src/Rewards/obj/Debug/netcoreapp2.0/Rewards.csproj.CoreCompileInputs.cache
+/home/walden2/Projects/spa-rewards/src/Rewards/obj/Debug/netcoreapp2.0/Rewards.AssemblyInfoInputs.cache
+/home/walden2/Projects/spa-rewards/src/Rewards/obj/Debug/netcoreapp2.0/Rewards.AssemblyInfo.cs
+/home/walden2/Projects/spa-rewards/src/Rewards/obj/Debug/netcoreapp2.0/Rewards.dll
+/home/walden2/Projects/spa-rewards/src/Rewards/obj/Debug/netcoreapp2.0/Rewards.pdb
+/home/walden2/Projects/spa-rewards/src/Rewards/bin/Debug/netcoreapp2.0/Rewards.Services.dll
+/home/walden2/Projects/spa-rewards/src/Rewards/bin/Debug/netcoreapp2.0/Rewards.Services.pdb

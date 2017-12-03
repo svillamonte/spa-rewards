@@ -1,0 +1,8 @@
+/home/walden2/Projects/spa-rewards/src/Rewards.Services/obj/Debug/netstandard2.0/Rewards.Services.csproj.CoreCompileInputs.cache
+/home/walden2/Projects/spa-rewards/src/Rewards.Services/obj/Debug/netstandard2.0/Rewards.Services.AssemblyInfoInputs.cache
+/home/walden2/Projects/spa-rewards/src/Rewards.Services/obj/Debug/netstandard2.0/Rewards.Services.AssemblyInfo.cs
+/home/walden2/Projects/spa-rewards/src/Rewards.Services/bin/Debug/netstandard2.0/Rewards.Services.deps.json
+/home/walden2/Projects/spa-rewards/src/Rewards.Services/bin/Debug/netstandard2.0/Rewards.Services.dll
+/home/walden2/Projects/spa-rewards/src/Rewards.Services/bin/Debug/netstandard2.0/Rewards.Services.pdb
+/home/walden2/Projects/spa-rewards/src/Rewards.Services/obj/Debug/netstandard2.0/Rewards.Services.dll
+/home/walden2/Projects/spa-rewards/src/Rewards.Services/obj/Debug/netstandard2.0/Rewards.Services.pdb
