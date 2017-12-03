@@ -7,6 +7,7 @@ interface RewardsDataState {
     paginationData: PaginationModel;
     loading: boolean;
     currentPage: number;
+    showError: boolean
 }
 
 export class RewardsData extends React.Component<RouteComponentProps<{}>, RewardsDataState> {
@@ -16,14 +17,15 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, Reward
             rewards: [], 
             paginationData: {} as PaginationModel,
             loading: true, 
-            currentPage: 1 
+            currentPage: 1,
+            showError: false 
         };
 
         this.fetchData(this.state.currentPage, true);
     }
     
     public render() {
-        const { loading, rewards, currentPage, paginationData } = this.state;
+        const { loading, rewards, currentPage, paginationData, showError } = this.state;
 
         let contents = loading
             ? <p><em>Loading...</em></p>
@@ -31,8 +33,17 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, Reward
 
         const nextPageEnabled = paginationData.pageSize * currentPage < paginationData.totalRecords;
         const previousPageEnabled = currentPage > 1;
+
+        const errorMessage = !showError
+            ? null
+            : 
+            <div className="alert alert-danger">
+                <strong>Something went wrong. </strong> Please reload.
+            </div>
+
         
         return <div>
+            {errorMessage}
             <div>
                 <a href="javascript:void(0);"
                     className={`btn${previousPageEnabled ? "" : " disabled"}`} 
@@ -67,7 +78,13 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, Reward
         }
 
         fetch(`api/RewardsData/Rewards?pageNumber=${pageNumber}`)
-            .then(response => response.json() as Promise<RewardDataModel>)
+            .then(response => {
+                if (!response.ok) {
+                    throw Error();
+                }
+                
+                return response.json() as Promise<RewardDataModel>
+            })
             .then(data => {
                 this.setState({
                     rewards: data.rewards,
@@ -75,7 +92,8 @@ export class RewardsData extends React.Component<RouteComponentProps<{}>, Reward
                     loading: false,
                     currentPage: pageNumber
                  });
-            });
+            })
+            .catch(() => this.setState({ showError: true }));
     }
 
     private static renderRewardsTable(rewards: RewardModel[]) {
