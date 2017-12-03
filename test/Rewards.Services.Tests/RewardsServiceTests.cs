@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Moq;
 using RestSharp;
 using Rewards.Services.Interfaces;
+using Rewards.Services.Models;
 using Xunit;
 
 namespace Rewards.Services.Tests

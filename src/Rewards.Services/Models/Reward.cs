@@ -27,20 +27,4 @@ namespace Rewards.Services
 
         public int RedeemedCount { get; set; }
     }
-
-    public class PaginationData 
-    {
-        public int TotalRecords { get; set; }
-
-        public int CurrentPage { get; set; }
-
-        public int PageSize { get; set; }
-    }
-
-    public class RewardData
-    {
-        public List<Reward> Rewards { get; set; }
-
-        public PaginationData PaginationData { get; set; }
-    }
 }

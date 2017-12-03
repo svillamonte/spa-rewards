@@ -1,3 +1,5 @@
+using Rewards.Services.Models;
+
 namespace Rewards.Services.Interfaces
 {
     public interface IRewardsService

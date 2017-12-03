@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using RestSharp;
 using Rewards.Services.Interfaces;
+using Rewards.Services.Models;
 
 namespace Rewards.Services
 {
