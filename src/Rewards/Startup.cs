@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Rewards.Services;
+using Rewards.Services.Interfaces;
 
 namespace Rewards
 {
@@ -22,6 +24,7 @@ namespace Rewards
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IRewardsService, RewardsService>();
             services.AddMvc();
         }
 

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using RestSharp;
-using Rewards.Services;
+using Rewards.Services.Interfaces;
 
 namespace Rewards.Services
 {
-    public class RewardsService
+    public class RewardsService : IRewardsService
     {
         public RewardData GetRewards(int pageNumber)
         {

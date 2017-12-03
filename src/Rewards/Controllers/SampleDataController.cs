@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Rewards.Services;
+using Rewards.Models;
+using Rewards.Services.Interfaces;
 
 namespace Rewards.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
+        private readonly IRewardsService _rewardsService;
+
+        public SampleDataController(IRewardsService rewardsService)
+        {
+            _rewardsService = rewardsService;
+        }
+
         [HttpGet("[action]")]
         public RewardDataModel Rewards(int pageNumber)
         {
-            var service = new RewardsService();
-            var rewardData = service.GetRewards(pageNumber);
+            var rewardData = _rewardsService.GetRewards(pageNumber);
 
             var rewardModels = rewardData.Rewards.Select(x => new RewardModel
             {
@@ -33,31 +40,6 @@ namespace Rewards.Controllers
                     PageSize = rewardData.PaginationData.PageSize
                 }
             };
-        }
-
-        public class RewardDataModel
-        {
-            public IEnumerable<RewardModel> Rewards { get; set; }
-
-            public PaginationModel PaginationData { get; set; }
-        }
-
-        public class PaginationModel
-        {
-            public int TotalRecords { get; set; }
-
-            public int PageSize { get; set; }
-        }
-
-        public class RewardModel
-        {
-            public string Id { get; set; }
-
-            public string DateCreatedFormatted { get; set; }
-            
-            public string Title { get; set; }
-
-            public string DiscountType { get; set; }
         }
     }
 }
